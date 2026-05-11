@@ -6,50 +6,79 @@
 <link rel="stylesheet" href="../style.css">
 
 <style>
+:root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --text: #ffffff;
+    --muted: #94a3b8;
+    --accent: #38bdf8;
+}
+
+body.light {
+    --bg: #f1f5f9;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #475569;
+}
+
 body {
-    padding: 20px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial;
+    transition: 0.3s;
 }
 
 .container {
-    max-width: 800px;
+    max-width: 900px;
     margin: auto;
-    background: #1e293b;
     padding: 20px;
-    border-radius: 10px;
+}
+
+.card {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 12px;
 }
 
 input, textarea {
     width: 100%;
     padding: 10px;
-    margin: 10px 0;
-    background: #0f172a;
-    color: white;
-    border: 1px solid #334155;
+    margin: 8px 0;
     border-radius: 6px;
+    border: 1px solid #334155;
+    background: transparent;
+    color: var(--text);
 }
 
 button {
-    padding: 10px 15px;
+    padding: 10px 14px;
     margin: 5px;
-    background: #38bdf8;
     border: none;
+    border-radius: 6px;
     cursor: pointer;
     font-weight: bold;
 }
 
-.toggle {
-    float: right;
-    background: #22c55e;
-}
+.primary { background: var(--accent); color: black; }
+.darkbtn { background: #22c55e; }
+.printbtn { background: #f59e0b; }
 
 .preview {
     margin-top: 20px;
-    padding: 15px;
+    padding: 20px;
     background: white;
     color: black;
     border-radius: 10px;
     display: none;
 }
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 { color: var(--accent); }
 </style>
 </head>
 
@@ -57,40 +86,42 @@ button {
 
 <div class="container">
 
-    <h1>Resume Maker Pro</h1>
+    <div class="topbar">
+        <h1>Resume Maker Pro</h1>
+        <button class="darkbtn" onclick="toggleTheme()">Toggle Theme</button>
+    </div>
 
-    <!-- DARK/LIGHT TOGGLE -->
-    <button class="toggle" onclick="toggleMode()">Toggle Theme</button>
+    <div class="card">
 
-    <input id="name" placeholder="Full Name">
-    <input id="email" placeholder="Email">
-    <input id="job" placeholder="Job Title">
+        <input id="name" placeholder="Full Name">
+        <input id="email" placeholder="Email">
+        <input id="phone" placeholder="Phone Number">
+        <input id="job" placeholder="Job Title">
 
-    <textarea id="skills" placeholder="Skills (comma separated)"></textarea>
+        <textarea id="skills" placeholder="Skills (comma separated)"></textarea>
+        <textarea id="experience" placeholder="Experience"></textarea>
 
-    <textarea id="experience" placeholder="Experience"></textarea>
+        <button class="primary" onclick="generate()">Generate Resume</button>
+        <button class="printbtn" onclick="printResume()">Print</button>
 
-    <button onclick="generate()">Generate Resume</button>
-    <button onclick="download()">Download</button>
+    </div>
 
     <div id="preview" class="preview"></div>
 
 </div>
 
 <script>
-let dark = true;
-
 /* THEME TOGGLE */
-function toggleMode() {
-    document.body.style.background = dark ? "#f1f5f9" : "#0f172a";
-    document.body.style.color = dark ? "#000" : "#fff";
-    dark = !dark;
+function toggleTheme() {
+    document.body.classList.toggle("light");
 }
 
-/* RESUME GENERATE */
+/* GENERATE RESUME */
 function generate() {
+
     let name = document.getElementById("name").value;
     let email = document.getElementById("email").value;
+    let phone = document.getElementById("phone").value;
     let job = document.getElementById("job").value;
     let skills = document.getElementById("skills").value;
     let exp = document.getElementById("experience").value;
@@ -99,23 +130,22 @@ function generate() {
 
     document.getElementById("preview").innerHTML = `
         <h2>${name}</h2>
-        <p>${email}</p>
-        <h3>${job}</h3>
+        <p>${job}</p>
+        <p>${email} | ${phone}</p>
         <hr>
-        <p><b>Skills:</b> ${skills}</p>
-        <p><b>Experience:</b> ${exp}</p>
+        <h3>Skills</h3>
+        <p>${skills}</p>
+        <h3>Experience</h3>
+        <p>${exp}</p>
     `;
 }
 
-/* DOWNLOAD AS FILE */
-function download() {
-    let content = document.getElementById("preview").innerText;
-    let blob = new Blob([content], { type: "text/plain" });
-    let link = document.createElement("a");
-
-    link.href = URL.createObjectURL(blob);
-    link.download = "resume.txt";
-    link.click();
+/* PRINT RESUME */
+function printResume() {
+    let content = document.getElementById("preview").innerHTML;
+    let win = window.open("", "", "width=800,height=600");
+    win.document.write(content);
+    win.print();
 }
 </script>
 
