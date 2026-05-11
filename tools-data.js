@@ -1,201 +1,199 @@
 const tools = [
 
 {
-name: "GIF Creator",
-category: "Media",
-icon: "🎬",
-image: "assets/gif.jpg",
-route: "tools/gif-creator.html",
-premium: false
+    name:"GIF Creator",
+    category:"Media",
+    icon:"🎬",
+    premium:false,
+
+    image:"https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d",
+
+    description:
+    "Convert videos and images into high-quality GIFs with captions, optimization and export tools.",
+
+    link:"tools/gif-creator.html"
 },
 
 {
-name: "AI Meeting Assistant",
-category: "Productivity",
-icon: "🎤",
-image: "assets/meeting.jpg",
-route: "tools/ai-meeting.html",
-premium: true
+    name:"AI Meeting Assistant",
+    category:"Productivity",
+    icon:"🎤",
+    premium:true,
+
+    image:"https://images.unsplash.com/photo-1516321318423-f06f85e504b3",
+
+    description:
+    "Generate meeting summaries, action items, smart notes and productivity workflows using AI.",
+
+    link:"tools/ai-meeting.html"
 },
 
 {
-name: "Resume Cover Maker",
-category: "Career",
-icon: "📄",
-image: "assets/resume.jpg",
-route: "tools/resume-maker.html",
-premium: false
+    name:"Resume Cover Maker",
+    category:"Writing",
+    icon:"📄",
+    premium:false,
+
+    image:"https://images.unsplash.com/photo-1521791136064-7986c2920216",
+
+    description:
+    "Create ATS-friendly resumes and professional cover letters with modern templates.",
+
+    link:"tools/resume-maker.html"
 },
 
 {
-name: "Smart Expenses",
-category: "Finance",
-icon: "💰",
-image: "assets/expenses.jpg",
-route: "tools/smart-expenses.html",
-premium: true
+    name:"PDF Toolkit",
+    category:"Utility",
+    icon:"📑",
+    premium:false,
+
+    image:"https://images.unsplash.com/photo-1517842645767-c639042777db",
+
+    description:
+    "Merge, split, compress and convert PDF documents with modern productivity features.",
+
+    link:"tools/pdf-toolkit.html"
 },
 
 {
-name: "AI Scan Master",
-category: "Document",
-icon: "📷",
-image: "assets/scan.jpg",
-route: "tools/ai-scan.html",
-premium: true
+    name:"Password Generator",
+    category:"Security",
+    icon:"🔒",
+    premium:false,
+
+    image:"https://images.unsplash.com/photo-1510511459019-5dda7724fd87",
+
+    description:
+    "Generate strong and secure passwords with custom settings and encryption-ready logic.",
+
+    link:"tools/password-generator.html"
 },
 
 {
-name: "PDF Toolkit",
-category: "Document",
-icon: "📑",
-image: "assets/pdf.jpg",
-route: "tools/pdf-toolkit.html",
-premium: false
+    name:"AI Image Editor",
+    category:"Media",
+    icon:"🖼️",
+    premium:true,
+
+    image:"https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+
+    description:
+    "Enhance, filter, resize and edit images using professional AI-powered editing tools.",
+
+    link:"tools/ai-image-editor.html"
 },
 
 {
-name: "AI Image Editor",
-category: "Media",
-icon: "🖼️",
-image: "assets/image-editor.jpg",
-route: "tools/image-editor.html",
-premium: true
+    name:"Video Toolkit",
+    category:"Media",
+    icon:"🎥",
+    premium:true,
+
+    image:"https://images.unsplash.com/photo-1492619375914-88005aa9e8fb",
+
+    description:
+    "Trim, merge, compress and optimize videos with modern creator-focused features.",
+
+    link:"tools/video-toolkit.html"
 },
 
 {
-name: "Video Toolkit",
-category: "Media",
-icon: "🎥",
-image: "assets/video.jpg",
-route: "tools/video-toolkit.html",
-premium: true
+    name:"AI Translator",
+    category:"Utility",
+    icon:"🌐",
+    premium:false,
+
+    image:"https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
+
+    description:
+    "Translate text instantly across multiple languages with AI-powered translation engine.",
+
+    link:"tools/translator.html"
 },
 
 {
-name: "AI Code Assistant",
-category: "Developer",
-icon: "💻",
-image: "assets/code.jpg",
-route: "tools/code-assistant.html",
-premium: true
+    name:"Text Summarizer",
+    category:"Writing",
+    icon:"📝",
+    premium:false,
+
+    image:"https://images.unsplash.com/photo-1455390582262-044cdead277a",
+
+    description:
+    "Generate concise summaries, bullet points and smart insights from long content.",
+
+    link:"tools/text-summarizer.html"
 },
 
 {
-name: "AI Content Writer",
-category: "Writing",
-icon: "✍️",
-image: "assets/writer.jpg",
-route: "tools/content-writer.html",
-premium: true
+    name:"Grammar Checker",
+    category:"Writing",
+    icon:"🔍",
+    premium:false,
+
+    image:"https://images.unsplash.com/photo-1454165804606-c3d57bc86b40",
+
+    description:
+    "Improve grammar, spelling and writing quality using AI-powered language correction.",
+
+    link:"tools/grammar-checker.html"
 },
 
 {
-name: "AI Translator",
-category: "Utility",
-icon: "🌐",
-image: "assets/translator.jpg",
-route: "tools/translator.html",
-premium: false
+    name:"Speech To Text",
+    category:"Media",
+    icon:"🎙️",
+    premium:true,
+
+    image:"https://images.unsplash.com/photo-1516321497487-e288fb19713f",
+
+    description:
+    "Convert speech into accurate text using voice recognition and smart transcription.",
+
+    link:"tools/speech-to-text.html"
 },
 
 {
-name: "Text Summarizer",
-category: "Writing",
-icon: "📝",
-image: "assets/summarizer.jpg",
-route: "tools/text-summarizer.html",
-premium: false
+    name:"Text To Speech",
+    category:"Media",
+    icon:"🔊",
+    premium:true,
+
+    image:"https://images.unsplash.com/photo-1487215078519-e21cc028cb29",
+
+    description:
+    "Transform text into realistic AI-generated voice with multiple languages and tones.",
+
+    link:"tools/text-to-speech.html"
 },
 
 {
-name: "Grammar Checker",
-category: "Writing",
-icon: "🔍",
-image: "assets/grammar.jpg",
-route: "tools/grammar-checker.html",
-premium: false
+    name:"Chart Maker",
+    category:"Analytics",
+    icon:"📈",
+    premium:false,
+
+    image:"https://images.unsplash.com/photo-1551288049-bebda4e38f71",
+
+    description:
+    "Create professional pie charts, bar graphs and visual analytics dashboards easily.",
+
+    link:"tools/chart-maker.html"
 },
 
 {
-name: "Plagiarism Checker",
-category: "Writing",
-icon: "⚖️",
-image: "assets/plagiarism.jpg",
-route: "tools/plagiarism-checker.html",
-premium: true
-},
+    name:"QR Generator",
+    category:"Utility",
+    icon:"📱",
+    premium:false,
 
-{
-name: "Speech to Text",
-category: "Media",
-icon: "🎙️",
-image: "assets/speech.jpg",
-route: "tools/speech-to-text.html",
-premium: true
-},
+    image:"https://images.unsplash.com/photo-1556740749-887f6717d7e4",
 
-{
-name: "Text to Speech",
-category: "Media",
-icon: "🔊",
-image: "assets/tts.jpg",
-route: "tools/text-to-speech.html",
-premium: true
-},
+    description:
+    "Generate custom QR codes with branding, colors, logos and downloadable exports.",
 
-{
-name: "Data Analyst",
-category: "Analytics",
-icon: "📊",
-image: "assets/data.jpg",
-route: "tools/data-analyst.html",
-premium: true
-},
-
-{
-name: "Chart Maker",
-category: "Analytics",
-icon: "📈",
-image: "assets/chart.jpg",
-route: "tools/chart-maker.html",
-premium: false
-},
-
-{
-name: "QR Code Generator",
-category: "Utility",
-icon: "📱",
-image: "assets/qr.jpg",
-route: "tools/qr-generator.html",
-premium: false
-},
-
-{
-name: "Color Palette",
-category: "Design",
-icon: "🎨",
-image: "assets/color.jpg",
-route: "tools/color-palette.html",
-premium: false
-},
-
-{
-name: "Password Generator",
-category: "Security",
-icon: "🔒",
-image: "assets/password.jpg",
-route: "tools/password-generator.html",
-premium: false
-},
-
-{
-name: "Smart Skin Scan",
-category: "Health",
-icon: "🔬",
-image: "assets/skin.jpg",
-route: "tools/skin-scan.html",
-premium: true
+    link:"tools/qr-generator.html"
 }
 
 ];
