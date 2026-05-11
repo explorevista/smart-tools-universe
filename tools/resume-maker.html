@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Maker</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+    <div style="padding:20px;">
+
+        <h1>Resume Maker Tool</h1>
+
+        <input id="name" placeholder="Enter Your Name" />
+        <br><br>
+
+        <input id="job" placeholder="Enter Job Title" />
+        <br><br>
+
+        <textarea id="skills" placeholder="Enter Skills"></textarea>
+        <br><br>
+
+        <button onclick="generateResume()">Generate Resume</button>
+
+        <div id="output" style="margin-top:20px;"></div>
+
+    </div>
+
+    <script>
+        function generateResume() {
+            let name = document.getElementById("name").value;
+            let job = document.getElementById("job").value;
+            let skills = document.getElementById("skills").value;
+
+            document.getElementById("output").innerHTML =
+                "<h2>" + name + "</h2>" +
+                "<p>" + job + "</p>" +
+                "<p><b>Skills:</b> " + skills + "</p>";
+        }
+    </script>
+
+</body>
+</html>
