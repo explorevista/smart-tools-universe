@@ -1,42 +1,123 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Resume Maker</title>
-    <link rel="stylesheet" href="../style.css">
+<meta charset="UTF-8">
+<title>Resume Maker Pro</title>
+<link rel="stylesheet" href="../style.css">
+
+<style>
+body {
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background: #0f172a;
+    color: white;
+    border: 1px solid #334155;
+    border-radius: 6px;
+}
+
+button {
+    padding: 10px 15px;
+    margin: 5px;
+    background: #38bdf8;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.toggle {
+    float: right;
+    background: #22c55e;
+}
+
+.preview {
+    margin-top: 20px;
+    padding: 15px;
+    background: white;
+    color: black;
+    border-radius: 10px;
+    display: none;
+}
+</style>
 </head>
+
 <body>
 
-    <div style="padding:20px;">
+<div class="container">
 
-        <h1>Resume Maker Tool</h1>
+    <h1>Resume Maker Pro</h1>
 
-        <input id="name" placeholder="Enter Your Name" />
-        <br><br>
+    <!-- DARK/LIGHT TOGGLE -->
+    <button class="toggle" onclick="toggleMode()">Toggle Theme</button>
 
-        <input id="job" placeholder="Enter Job Title" />
-        <br><br>
+    <input id="name" placeholder="Full Name">
+    <input id="email" placeholder="Email">
+    <input id="job" placeholder="Job Title">
 
-        <textarea id="skills" placeholder="Enter Skills"></textarea>
-        <br><br>
+    <textarea id="skills" placeholder="Skills (comma separated)"></textarea>
 
-        <button onclick="generateResume()">Generate Resume</button>
+    <textarea id="experience" placeholder="Experience"></textarea>
 
-        <div id="output" style="margin-top:20px;"></div>
+    <button onclick="generate()">Generate Resume</button>
+    <button onclick="download()">Download</button>
 
-    </div>
+    <div id="preview" class="preview"></div>
 
-    <script>
-        function generateResume() {
-            let name = document.getElementById("name").value;
-            let job = document.getElementById("job").value;
-            let skills = document.getElementById("skills").value;
+</div>
 
-            document.getElementById("output").innerHTML =
-                "<h2>" + name + "</h2>" +
-                "<p>" + job + "</p>" +
-                "<p><b>Skills:</b> " + skills + "</p>";
-        }
-    </script>
+<script>
+let dark = true;
+
+/* THEME TOGGLE */
+function toggleMode() {
+    document.body.style.background = dark ? "#f1f5f9" : "#0f172a";
+    document.body.style.color = dark ? "#000" : "#fff";
+    dark = !dark;
+}
+
+/* RESUME GENERATE */
+function generate() {
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let job = document.getElementById("job").value;
+    let skills = document.getElementById("skills").value;
+    let exp = document.getElementById("experience").value;
+
+    document.getElementById("preview").style.display = "block";
+
+    document.getElementById("preview").innerHTML = `
+        <h2>${name}</h2>
+        <p>${email}</p>
+        <h3>${job}</h3>
+        <hr>
+        <p><b>Skills:</b> ${skills}</p>
+        <p><b>Experience:</b> ${exp}</p>
+    `;
+}
+
+/* DOWNLOAD AS FILE */
+function download() {
+    let content = document.getElementById("preview").innerText;
+    let blob = new Blob([content], { type: "text/plain" });
+    let link = document.createElement("a");
+
+    link.href = URL.createObjectURL(blob);
+    link.download = "resume.txt";
+    link.click();
+}
+</script>
 
 </body>
 </html>
