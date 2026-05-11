@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PDF Toolkit Pro</title>
+<link rel="stylesheet" href="../style.css">
+
+<style>
+:root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --text: #ffffff;
+    --accent: #38bdf8;
+}
+
+body.light {
+    --bg: #f1f5f9;
+    --card: #ffffff;
+    --text: #0f172a;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial;
+    transition: 0.3s;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+.card {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 12px;
+}
+
+input, button {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+}
+
+button {
+    background: var(--accent);
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.row {
+    display: flex;
+    gap: 10px;
+}
+
+.box {
+    flex: 1;
+    background: var(--card);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📄 PDF Toolkit Pro</h1>
+
+    <button onclick="toggleTheme()">Toggle Theme</button>
+
+    <div class="card">
+
+        <h3>Upload PDF File</h3>
+        <input type="file" id="file">
+
+        <div class="row">
+            <button onclick="mergePDF()">Merge (UI)</button>
+            <button onclick="splitPDF()">Split (UI)</button>
+        </div>
+
+        <button onclick="compressPDF()">Compress (UI)</button>
+
+    </div>
+
+    <div class="box" id="output">
+        <h3>Output Preview</h3>
+        <p>No file processed yet.</p>
+    </div>
+
+</div>
+
+<script>
+
+/* THEME */
+function toggleTheme() {
+    document.body.classList.toggle("light");
+}
+
+/* MERGE SIMULATION */
+function mergePDF() {
+    document.getElementById("output").innerHTML =
+        "<h3>PDF Merged Successfully ✔</h3><p>Download ready (future API connect)</p>";
+}
+
+/* SPLIT SIMULATION */
+function splitPDF() {
+    document.getElementById("output").innerHTML =
+        "<h3>PDF Split Done ✔</h3><p>Pages separated successfully</p>";
+}
+
+/* COMPRESS SIMULATION */
+function compressPDF() {
+    document.getElementById("output").innerHTML =
+        "<h3>PDF Compressed ✔</h3><p>File size reduced (UI demo)</p>";
+}
+
+</script>
+
+</body>
+</html>
