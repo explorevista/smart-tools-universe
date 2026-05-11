@@ -2,101 +2,141 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Smart Tools Universe</title>
 
-<style>
-body {
-    margin: 0;
-    font-family: Arial;
-    background: #0f172a;
-    color: white;
-}
+<link rel="stylesheet" href="style.css">
 
-header {
-    padding: 20px;
-    text-align: center;
-    background: #1e293b;
-}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-input {
-    padding: 10px;
-    width: 60%;
-    margin-top: 10px;
-    border-radius: 8px;
-    border: none;
-    outline: none;
-}
-
-.filter-bar {
-    text-align: center;
-    margin-top: 10px;
-}
-
-.filter-bar button {
-    margin: 5px;
-    padding: 8px 12px;
-    border: none;
-    cursor: pointer;
-    border-radius: 6px;
-    background: #334155;
-    color: white;
-}
-
-.tools-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    padding: 20px;
-}
-
-.tool-card {
-    background: #1e293b;
-    padding: 15px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.tool-card:hover {
-    background: #334155;
-    transform: scale(1.03);
-}
-
-.tool-card h3 {
-    color: #38bdf8;
-    margin: 0;
-}
-
-.tool-card small {
-    color: #94a3b8;
-}
-</style>
+<script src="https://kit.fontawesome.com/a2d9d6a64f.js" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
 
-<header>
-    <h1>🚀 Smart Tools Universe</h1>
-    <p>AI SaaS Tool Ecosystem</p>
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
 
-    <!-- SEARCH -->
-    <input type="text" id="search" placeholder="Search tools...">
-</header>
+    <div class="logo">
+        🚀 SmartVerse
+    </div>
 
-<!-- FILTERS -->
-<div class="filter-bar">
-    <button onclick="filterCategory('all')">All</button>
-    <button onclick="filterCategory('Media')">Media</button>
-    <button onclick="filterCategory('Writing')">Writing</button>
-    <button onclick="filterCategory('Utility')">Utility</button>
-    <button onclick="filterCategory('Productivity')">Productivity</button>
+    <ul class="nav-links">
+
+        <li class="active">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </li>
+
+        <li>
+            <i class="fas fa-photo-video"></i>
+            <span>Media Tools</span>
+        </li>
+
+        <li>
+            <i class="fas fa-pen"></i>
+            <span>Writing Tools</span>
+        </li>
+
+        <li>
+            <i class="fas fa-chart-line"></i>
+            <span>Analytics</span>
+        </li>
+
+        <li>
+            <i class="fas fa-lock"></i>
+            <span>Security</span>
+        </li>
+
+        <li>
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </li>
+
+    </ul>
+
 </div>
 
-<!-- TOOLS -->
-<div class="tools-grid"></div>
+<!-- MAIN -->
+<div class="main-content">
 
-<!-- SCRIPTS -->
+    <!-- TOPBAR -->
+    <div class="topbar">
+
+        <div class="menu-btn" onclick="toggleSidebar()">
+            ☰
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="search" placeholder="Search tools...">
+        </div>
+
+        <div class="top-actions">
+
+            <button class="theme-btn" onclick="toggleTheme()">
+                🌙
+            </button>
+
+            <div class="profile">
+                👤 Muhammad Ali
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- HERO -->
+    <div class="hero-section">
+
+        <div class="hero-left">
+            <h1>AI SaaS Tool Ecosystem</h1>
+
+            <p>
+                Professional AI-powered productivity, media, analytics and utility platform built for creators, freelancers and businesses.
+            </p>
+
+            <button class="hero-btn">
+                Explore Tools
+            </button>
+        </div>
+
+        <div class="hero-right">
+
+            <div class="hero-card">
+                ⚡ 22 Premium AI Tools
+            </div>
+
+            <div class="hero-card">
+                🔥 Smart SaaS Dashboard
+            </div>
+
+            <div class="hero-card">
+                🚀 Firebase + Node.js Ready
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- CATEGORY FILTER -->
+    <div class="filter-bar">
+
+        <button onclick="filterCategory('all')">All</button>
+        <button onclick="filterCategory('Media')">Media</button>
+        <button onclick="filterCategory('Writing')">Writing</button>
+        <button onclick="filterCategory('Utility')">Utility</button>
+        <button onclick="filterCategory('Analytics')">Analytics</button>
+
+    </div>
+
+    <!-- TOOLS GRID -->
+    <div class="tools-grid"></div>
+
+</div>
+
 <script src="tools-data.js"></script>
 <script src="dashboard.js"></script>
 
