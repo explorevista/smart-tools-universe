@@ -1,102 +1,125 @@
-/* TOOL RENDER SYSTEM */
+import {
 
-const toolsGrid = document.querySelector(".tools-grid");
+  auth,
+  db,
+  provider,
+
+  createUserWithEmailAndPassword,
+
+  signInWithEmailAndPassword,
+
+  signInWithPopup,
+
+  onAuthStateChanged,
+
+  doc,
+  setDoc
+
+} from "./firebase-config.js";
+
+/* GRID */
+
+const toolsGrid =
+document.querySelector(".tools-grid");
 
 let currentCategory = "all";
 
-/* RENDER TOOLS */
+/* RENDER */
 
 function renderTools(){
 
-    toolsGrid.innerHTML = "";
+toolsGrid.innerHTML = "";
 
-    let searchValue =
-    document
-    .getElementById("search")
-    .value
-    .toLowerCase();
+let searchValue =
+document
+.getElementById("search")
+.value
+.toLowerCase();
 
-    let filteredTools =
-    tools.filter(tool => {
+let filteredTools =
+tools.filter(tool => {
 
-        let matchesSearch =
-        tool.name.toLowerCase()
-        .includes(searchValue);
+let matchesSearch =
+tool.name.toLowerCase()
+.includes(searchValue);
 
-        let matchesCategory =
-        currentCategory === "all"
-        ||
-        tool.category === currentCategory;
+let matchesCategory =
+currentCategory === "all"
+||
+tool.category === currentCategory;
 
-        return matchesSearch && matchesCategory;
-    });
+return matchesSearch
+&&
+matchesCategory;
 
-    if(filteredTools.length === 0){
+});
 
-        toolsGrid.innerHTML = `
-        <div class="empty-state">
-            <h2>No Tools Found</h2>
-        </div>
-        `;
+filteredTools.forEach(tool => {
 
-        return;
-    }
+let badge =
+tool.premium
 
-    filteredTools.forEach(tool => {
+?
 
-        let badge =
-        tool.premium
-        ?
-        `<span class="premium-badge">
-            PREMIUM
-        </span>`
-        :
-        `<span class="free-badge">
-            FREE
-        </span>`;
+`<span class="premium-badge">
+PREMIUM
+</span>`
 
-        let card = `
+:
 
-        <div class="tool-card"
-        onclick="openTool('${tool.link}')">
+`<span class="free-badge">
+FREE
+</span>`;
 
-            <img
-            src="${tool.image}"
-            class="tool-image">
+let card = `
 
-            <div class="tool-content">
+<div class="tool-card
+${tool.premium ? 'premium-tool' : ''}"
 
-                <div class="tool-top">
+onclick="openTool('${tool.link}')">
 
-                    <div class="tool-icon">
-                        ${tool.icon}
-                    </div>
+<img src="${tool.image}"
+class="tool-image">
 
-                    ${badge}
+<div class="tool-content">
 
-                </div>
+<div class="tool-top">
 
-                <h3>${tool.name}</h3>
+<div class="tool-icon">
+${tool.icon}
+</div>
 
-                <p>${tool.description}</p>
+${badge}
 
-            </div>
+</div>
 
-        </div>
+<h3>${tool.name}</h3>
 
-        `;
+<p>${tool.description}</p>
 
-        toolsGrid.innerHTML += card;
+</div>
 
-    });
+</div>
+`;
+
+toolsGrid.innerHTML += card;
+
+});
 
 }
 
 /* OPEN TOOL */
 
-function openTool(link){
+window.openTool = function(link){
 
-    window.location.href = link;
+showToast();
+
+setTimeout(() => {
+
+window.location.href = link;
+
+},700);
+
 }
 
 /* SEARCH */
@@ -107,51 +130,255 @@ document
 
 /* FILTER */
 
-function filterCategory(category){
+window.filterCategory =
+function(category){
 
-    currentCategory = category;
+currentCategory = category;
 
-    renderTools();
+renderTools();
+
 }
 
-/* SIDEBAR TOGGLE */
+/* SIDEBAR */
 
-function toggleSidebar(){
+window.toggleSidebar =
+function(){
 
-    document
-    .getElementById("sidebar")
-    .classList
-    .toggle("active");
+document
+.getElementById("sidebar")
+.classList
+.toggle("active");
+
 }
 
-/* DARK / LIGHT MODE */
+/* THEME */
 
 let darkMode = true;
 
-function toggleTheme(){
+window.toggleTheme =
+function(){
 
-    if(darkMode){
+if(darkMode){
 
-        document.body.style.background =
-        "#f8fafc";
+document.body.style.background =
+"#f8fafc";
 
-        document.body.style.color =
-        "#0f172a";
+document.body.style.color =
+"#0f172a";
 
-        darkMode = false;
+darkMode = false;
 
-    }else{
+}else{
 
-        document.body.style.background =
-        "#0b1120";
+document.body.style.background =
+"#0b1120";
 
-        document.body.style.color =
-        "white";
+document.body.style.color =
+"white";
 
-        darkMode = true;
-    }
+darkMode = true;
+
 }
 
-/* INITIAL LOAD */
+}
+
+/* TOAST */
+
+function showToast(){
+
+const toast =
+document.getElementById("toast");
+
+toast.classList.add("show");
+
+setTimeout(() => {
+
+toast.classList.remove("show");
+
+},2500);
+
+}
+
+/* MODAL */
+
+window.openModal =
+function(){
+
+document
+.getElementById("premiumModal")
+.style.display = "flex";
+
+}
+
+window.closeModal =
+function(){
+
+document
+.getElementById("premiumModal")
+.style.display = "none";
+
+}
+
+/* AUTH MODAL */
+
+window.openAuthModal =
+function(){
+
+document
+.getElementById("authModal")
+.style.display = "flex";
+
+}
+
+window.closeAuthModal =
+function(){
+
+document
+.getElementById("authModal")
+.style.display = "none";
+
+}
+
+/* SIGNUP */
+
+window.signup =
+async function(){
+
+let email =
+document.getElementById("email").value;
+
+let password =
+document.getElementById("password").value;
+
+try{
+
+const userCredential =
+
+await createUserWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+const user = userCredential.user;
+
+await setDoc(
+doc(db, "users", user.uid),
+
+{
+name:"Smart User",
+email:user.email,
+role:"user",
+status:"active",
+createdAt:new Date().toISOString()
+}
+
+);
+
+alert("Signup Successful");
+
+closeAuthModal();
+
+}catch(error){
+
+alert(error.message);
+
+}
+
+}
+
+/* LOGIN */
+
+window.login =
+async function(){
+
+let email =
+document.getElementById("email").value;
+
+let password =
+document.getElementById("password").value;
+
+try{
+
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+alert("Login Successful");
+
+closeAuthModal();
+
+}catch(error){
+
+alert(error.message);
+
+}
+
+}
+
+/* GOOGLE LOGIN */
+
+window.googleLogin =
+async function(){
+
+try{
+
+const result =
+await signInWithPopup(
+auth,
+provider
+);
+
+const user = result.user;
+
+await setDoc(
+doc(db, "users", user.uid),
+
+{
+name:user.displayName,
+email:user.email,
+role:"user",
+status:"active",
+createdAt:new Date().toISOString()
+}
+
+);
+
+alert("Google Login Successful");
+
+closeAuthModal();
+
+}catch(error){
+
+alert(error.message);
+
+}
+
+}
+
+/* USER STATE */
+
+onAuthStateChanged(auth,
+(user)=>{
+
+if(user){
+
+document.querySelector(".profile")
+.innerHTML =
+`👤 ${user.email}`;
+
+}else{
+
+document.querySelector(".profile")
+.innerHTML =
+"👤 Account";
+
+}
+
+});
+
+/* LOAD */
 
 renderTools();
