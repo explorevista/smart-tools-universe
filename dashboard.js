@@ -1,384 +1,427 @@
 import {
+auth,
+onAuthStateChanged,
+signOut
+}
+from "./firebase-config.js";
 
-  auth,
-  db,
-  provider,
+/* =========================
+   PAGE LOADER
+========================= */
 
-  createUserWithEmailAndPassword,
+window.addEventListener("load",()=>{
 
-  signInWithEmailAndPassword,
+const loader =
+document.getElementById("pageLoader");
 
-  signInWithPopup,
+setTimeout(()=>{
 
-  onAuthStateChanged,
+if(loader){
 
-  doc,
-  setDoc
+loader.style.opacity = "0";
 
-} from "./firebase-config.js";
+loader.style.visibility = "hidden";
 
-/* GRID */
+}
 
-const toolsGrid =
-document.querySelector(".tools-grid");
-
-let currentCategory = "all";
-
-/* RENDER */
-
-function renderTools(){
-
-toolsGrid.innerHTML = "";
-
-let searchValue =
-document
-.getElementById("search")
-.value
-.toLowerCase();
-
-let filteredTools =
-tools.filter(tool => {
-
-let matchesSearch =
-tool.name.toLowerCase()
-.includes(searchValue);
-
-let matchesCategory =
-currentCategory === "all"
-||
-tool.category === currentCategory;
-
-return matchesSearch
-&&
-matchesCategory;
+},1200);
 
 });
 
-filteredTools.forEach(tool => {
+/* =========================
+   FIREBASE AUTH
+========================= */
 
-let badge =
-tool.premium
+onAuthStateChanged(auth,(user)=>{
 
-?
+if(user){
 
-`<span class="premium-badge">
-PREMIUM
-</span>`
+const userName =
+document.getElementById("userName");
 
-:
+const userEmail =
+document.getElementById("userEmail");
 
-`<span class="free-badge">
-FREE
-</span>`;
+if(userName){
 
-let card = `
+userName.innerHTML =
+user.displayName || "Smart User";
 
-<div class="tool-card
-${tool.premium ? 'premium-tool' : ''}"
+}
 
-onclick="openTool('${tool.link}')">
+if(userEmail){
 
-<img src="${tool.image}"
-class="tool-image">
+userEmail.innerHTML =
+user.email || "user@email.com";
 
-<div class="tool-content">
+}
 
-<div class="tool-top">
+}else{
 
-<div class="tool-icon">
-${tool.icon}
-</div>
+window.location.href =
+"../index.html";
 
-${badge}
+}
 
-</div>
+});
 
-<h3>${tool.name}</h3>
+/* =========================
+   LOGOUT SYSTEM
+========================= */
 
-<p>${tool.description}</p>
+window.logoutUser =
+async function(){
 
-</div>
+try{
 
-</div>
-`;
+await signOut(auth);
 
-toolsGrid.innerHTML += card;
+window.location.href =
+"../index.html";
+
+}catch(error){
+
+console.error(error);
+
+alert("Logout failed");
+
+}
+
+}
+
+/* =========================
+   MOBILE SIDEBAR
+========================= */
+
+const sidebar =
+document.getElementById("sidebar");
+
+const menuBtn =
+document.getElementById("menuBtn");
+
+const closeSidebar =
+document.getElementById("closeSidebar");
+
+const overlay =
+document.getElementById("mobileOverlay");
+
+if(menuBtn){
+
+menuBtn.addEventListener("click",()=>{
+
+sidebar.classList.add("active");
+
+overlay.classList.add("active");
 
 });
 
 }
 
-/* OPEN TOOL */
+if(closeSidebar){
 
-window.openTool = function(link){
+closeSidebar.addEventListener("click",()=>{
 
-showToast();
+sidebar.classList.remove("active");
 
-setTimeout(() => {
+overlay.classList.remove("active");
 
-window.location.href = link;
-
-},700);
+});
 
 }
 
-/* SEARCH */
+if(overlay){
 
-document
-.getElementById("search")
-.addEventListener("input", renderTools);
+overlay.addEventListener("click",()=>{
 
-/* FILTER */
+sidebar.classList.remove("active");
 
-window.filterCategory =
-function(category){
+overlay.classList.remove("active");
 
-currentCategory = category;
-
-renderTools();
+});
 
 }
 
-/* SIDEBAR */
+/* =========================
+   DARK / LIGHT MODE
+========================= */
 
-window.toggleSidebar =
-function(){
-
-document
-.getElementById("sidebar")
-.classList
-.toggle("active");
-
-}
-
-/* THEME */
+const themeToggle =
+document.getElementById("themeToggle");
 
 let darkMode = true;
 
-window.toggleTheme =
-function(){
+if(themeToggle){
+
+themeToggle.addEventListener("click",()=>{
 
 if(darkMode){
 
 document.body.style.background =
-"#f8fafc";
+"#f3f4f6";
 
 document.body.style.color =
-"#0f172a";
+"#111827";
+
+themeToggle.innerHTML = "☀️";
 
 darkMode = false;
 
 }else{
 
 document.body.style.background =
-"#0b1120";
+"#050816";
 
 document.body.style.color =
 "white";
+
+themeToggle.innerHTML = "🌙";
 
 darkMode = true;
 
 }
 
-}
-
-/* TOAST */
-
-function showToast(){
-
-const toast =
-document.getElementById("toast");
-
-toast.classList.add("show");
-
-setTimeout(() => {
-
-toast.classList.remove("show");
-
-},2500);
+});
 
 }
 
-/* MODAL */
+/* =========================
+   ACTIVE MENU SYSTEM
+========================= */
 
-window.openModal =
-function(){
+const menuItems =
+document.querySelectorAll(".sidebar-menu li");
 
-document
-.getElementById("premiumModal")
-.style.display = "flex";
+menuItems.forEach((item)=>{
 
-}
+item.addEventListener("click",()=>{
 
-window.closeModal =
-function(){
+menuItems.forEach((nav)=>{
 
-document
-.getElementById("premiumModal")
-.style.display = "none";
+nav.classList.remove("active");
 
-}
+});
 
-/* AUTH MODAL */
+item.classList.add("active");
 
-window.openAuthModal =
-function(){
+});
 
-document
-.getElementById("authModal")
-.style.display = "flex";
+});
 
-}
+/* =========================
+   PREMIUM TOOL LOCK
+========================= */
 
-window.closeAuthModal =
-function(){
+const premiumTools =
+document.querySelectorAll(".premium-tool button");
 
-document
-.getElementById("authModal")
-.style.display = "none";
+premiumTools.forEach((button)=>{
 
-}
+button.addEventListener("click",()=>{
 
-/* SIGNUP */
-
-window.signup =
-async function(){
-
-let email =
-document.getElementById("email").value;
-
-let password =
-document.getElementById("password").value;
-
-try{
-
-const userCredential =
-
-await createUserWithEmailAndPassword(
-auth,
-email,
-password
+alert(
+"Premium subscription required to access this AI tool."
 );
 
-const user = userCredential.user;
+});
 
-await setDoc(
-doc(db, "users", user.uid),
+});
 
-{
-name:"Smart User",
-email:user.email,
-role:"user",
-status:"active",
-createdAt:new Date().toISOString()
-}
+/* =========================
+   FAKE ANALYTICS LOADING
+========================= */
 
-);
+const statsCards =
+document.querySelectorAll(".stats-card");
 
-alert("Signup Successful");
+statsCards.forEach((card,index)=>{
 
-closeAuthModal();
+card.style.opacity = "0";
 
-}catch(error){
+card.style.transform = "translateY(40px)";
 
-alert(error.message);
+setTimeout(()=>{
 
-}
+card.style.transition = "0.6s";
 
-}
+card.style.opacity = "1";
 
-/* LOGIN */
+card.style.transform = "translateY(0px)";
 
-window.login =
-async function(){
+},300 * index);
 
-let email =
-document.getElementById("email").value;
+});
 
-let password =
-document.getElementById("password").value;
+/* =========================
+   TOOL CARD HOVER EFFECT
+========================= */
 
-try{
+const toolCards =
+document.querySelectorAll(".tool-card");
 
-await signInWithEmailAndPassword(
-auth,
-email,
-password
-);
+toolCards.forEach((card)=>{
 
-alert("Login Successful");
+card.addEventListener("mouseenter",()=>{
 
-closeAuthModal();
+card.style.transform =
+"translateY(-10px) scale(1.02)";
 
-}catch(error){
+});
 
-alert(error.message);
+card.addEventListener("mouseleave",()=>{
 
-}
+card.style.transform =
+"translateY(0px) scale(1)";
 
-}
+});
 
-/* GOOGLE LOGIN */
+});
 
-window.googleLogin =
-async function(){
+/* =========================
+   REAL TIME CLOCK
+========================= */
 
-try{
+const dashboardTitle =
+document.querySelector(".topbar-left p");
 
-const result =
-await signInWithPopup(
-auth,
-provider
-);
+function updateClock(){
 
-const user = result.user;
+const now = new Date();
 
-await setDoc(
-doc(db, "users", user.uid),
+const time =
+now.toLocaleTimeString();
 
-{
-name:user.displayName,
-email:user.email,
-role:"user",
-status:"active",
-createdAt:new Date().toISOString()
-}
+if(dashboardTitle){
 
-);
-
-alert("Google Login Successful");
-
-closeAuthModal();
-
-}catch(error){
-
-alert(error.message);
+dashboardTitle.innerHTML =
+`Welcome back • ${time}`;
 
 }
 
 }
 
-/* USER STATE */
+setInterval(updateClock,1000);
 
-onAuthStateChanged(auth,
-(user)=>{
+/* =========================
+   SMART SEARCH FILTER
+========================= */
 
-if(user){
+const searchInput =
+document.querySelector(".sidebar-search input");
 
-document.querySelector(".profile")
-.innerHTML =
-`👤 ${user.email}`;
+if(searchInput){
+
+searchInput.addEventListener("keyup",(e)=>{
+
+const value =
+e.target.value.toLowerCase();
+
+menuItems.forEach((item)=>{
+
+const text =
+item.innerText.toLowerCase();
+
+if(text.includes(value)){
+
+item.style.display = "flex";
 
 }else{
 
-document.querySelector(".profile")
-.innerHTML =
-"👤 Account";
+item.style.display = "none";
 
 }
 
 });
 
-/* LOAD */
+});
 
-renderTools();
+}
+
+/* =========================
+   NOTIFICATION BUTTON
+========================= */
+
+const notifyBtn =
+document.querySelectorAll(".topbar-icon")[1];
+
+if(notifyBtn){
+
+notifyBtn.addEventListener("click",()=>{
+
+alert(
+"You have 3 new Smart Tools notifications."
+);
+
+});
+
+}
+
+/* =========================
+   HERO BUTTONS
+========================= */
+
+const heroButtons =
+document.querySelectorAll(".hero-buttons button");
+
+heroButtons.forEach((button)=>{
+
+button.addEventListener("click",()=>{
+
+alert(
+"Feature panel coming in next premium update."
+);
+
+});
+
+});
+
+/* =========================
+   BUTTON RIPPLE EFFECT
+========================= */
+
+const allButtons =
+document.querySelectorAll("button");
+
+allButtons.forEach((button)=>{
+
+button.addEventListener("click",(e)=>{
+
+const ripple =
+document.createElement("span");
+
+ripple.classList.add("ripple");
+
+button.appendChild(ripple);
+
+const x =
+e.clientX - e.target.offsetLeft;
+
+const y =
+e.clientY - e.target.offsetTop;
+
+ripple.style.left = `${x}px`;
+
+ripple.style.top = `${y}px`;
+
+setTimeout(()=>{
+
+ripple.remove();
+
+},600);
+
+});
+
+});
+
+/* =========================
+   CONSOLE BRANDING
+========================= */
+
+console.log(
+"%c SMART TOOLS UNIVERSE ",
+"background:#7c3aed;color:white;padding:10px 20px;border-radius:10px;font-size:16px;font-weight:bold;"
+);
+
+console.log(
+"%c Premium SaaS Dashboard Loaded Successfully",
+"color:#06b6d4;font-size:14px;"
+);
