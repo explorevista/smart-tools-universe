@@ -1,144 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>Smart Tools Universe</title>
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet"
+href="style.css">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
 
-<script src="https://kit.fontawesome.com/a2d9d6a64f.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<script src="https://kit.fontawesome.com/a2d9d6a64f.js"
+crossorigin="anonymous"></script>
 
 </head>
 
 <body>
 
 <!-- SIDEBAR -->
-<div class="sidebar" id="sidebar">
 
-    <div class="logo">
-        🚀 SmartVerse
-    </div>
+<div class="sidebar"
+id="sidebar">
 
-    <ul class="nav-links">
+<div class="logo">
+🚀 SmartVerse
+</div>
 
-        <li class="active">
-            <i class="fas fa-home"></i>
-            <span>Dashboard</span>
-        </li>
+<ul class="nav-links">
 
-        <li>
-            <i class="fas fa-photo-video"></i>
-            <span>Media Tools</span>
-        </li>
+<li class="active">
+<i class="fas fa-home"></i>
+<span>Dashboard</span>
+</li>
 
-        <li>
-            <i class="fas fa-pen"></i>
-            <span>Writing Tools</span>
-        </li>
+<li>
+<i class="fas fa-photo-video"></i>
+<span>Media Tools</span>
+</li>
 
-        <li>
-            <i class="fas fa-chart-line"></i>
-            <span>Analytics</span>
-        </li>
+<li>
+<i class="fas fa-pen"></i>
+<span>Writing Tools</span>
+</li>
 
-        <li>
-            <i class="fas fa-lock"></i>
-            <span>Security</span>
-        </li>
+<li>
+<i class="fas fa-chart-line"></i>
+<span>Analytics</span>
+</li>
 
-        <li>
-            <i class="fas fa-cog"></i>
-            <span>Settings</span>
-        </li>
+<li>
+<i class="fas fa-lock"></i>
+<span>Security</span>
+</li>
 
-    </ul>
+<li>
+<i class="fas fa-cog"></i>
+<span>Settings</span>
+</li>
+
+</ul>
 
 </div>
 
 <!-- MAIN -->
+
 <div class="main-content">
 
-    <!-- TOPBAR -->
-    <div class="topbar">
+<!-- TOPBAR -->
 
-        <div class="menu-btn" onclick="toggleSidebar()">
-            ☰
-        </div>
+<div class="topbar">
 
-        <div class="search-box">
-            <input type="text" id="search" placeholder="Search tools...">
-        </div>
+<div class="menu-btn"
+onclick="toggleSidebar()">
+☰
+</div>
 
-        <div class="top-actions">
+<div class="search-box">
 
-            <button class="theme-btn" onclick="toggleTheme()">
-                🌙
-            </button>
-
-            <div class="profile">
-                👤 Muhammad Ali
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- HERO -->
-    <div class="hero-section">
-
-        <div class="hero-left">
-            <h1>AI SaaS Tool Ecosystem</h1>
-
-            <p>
-                Professional AI-powered productivity, media, analytics and utility platform built for creators, freelancers and businesses.
-            </p>
-
-            <button class="hero-btn">
-                Explore Tools
-            </button>
-        </div>
-
-        <div class="hero-right">
-
-            <div class="hero-card">
-                ⚡ 22 Premium AI Tools
-            </div>
-
-            <div class="hero-card">
-                🔥 Smart SaaS Dashboard
-            </div>
-
-            <div class="hero-card">
-                🚀 Firebase + Node.js Ready
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- CATEGORY FILTER -->
-    <div class="filter-bar">
-
-        <button onclick="filterCategory('all')">All</button>
-        <button onclick="filterCategory('Media')">Media</button>
-        <button onclick="filterCategory('Writing')">Writing</button>
-        <button onclick="filterCategory('Utility')">Utility</button>
-        <button onclick="filterCategory('Analytics')">Analytics</button>
-
-    </div>
-
-    <!-- TOOLS GRID -->
-    <div class="tools-grid"></div>
+<input type="text"
+id="search"
+placeholder="Search tools...">
 
 </div>
 
+<div class="top-actions">
+
+<button class="theme-btn"
+onclick="toggleTheme()">
+🌙
+</button>
+
+<div class="profile"
+onclick="openAuthModal()">
+👤 Account
+</div>
+
+</div>
+
+</div>
+
+<!-- HERO -->
+
+<div class="hero-section">
+
+<div class="hero-left">
+
+<h1>
+AI SaaS Tool Ecosystem
+</h1>
+
+<p>
+
+Professional AI-powered productivity,
+media, analytics and utility platform.
+
+</p>
+
+<button class="hero-btn">
+Explore Tools
+</button>
+
+</div>
+
+<div class="hero-right">
+
+<div class="hero-card">
+⚡ 22 Premium AI Tools
+</div>
+
+<div class="hero-card">
+🔥 Smart SaaS Dashboard
+</div>
+
+<div class="hero-card">
+🚀 Firebase + Node.js Ready
+</div>
+
+</div>
+
+</div>
+
+<!-- FILTERS -->
+
+<div class="filter-bar">
+
+<button onclick="filterCategory('all')">
+All
+</button>
+
+<button onclick="filterCategory('Media')">
+Media
+</button>
+
+<button onclick="filterCategory('Writing')">
+Writing
+</button>
+
+<button onclick="filterCategory('Utility')">
+Utility
+</button>
+
+<button onclick="filterCategory('Analytics')">
+Analytics
+</button>
+
+</div>
+
+<!-- TOOLS GRID -->
+
+<div class="tools-grid"></div>
+
+</div>
+
+<!-- PREMIUM MODAL -->
+
+<div class="modal-overlay"
+id="premiumModal">
+
+<div class="modal">
+
+<h2>
+🚀 Upgrade To Premium
+</h2>
+
+<p>
+
+Unlock advanced AI tools,
+premium exports and unlimited access.
+
+</p>
+
+<button onclick="closeModal()">
+Continue
+</button>
+
+</div>
+
+</div>
+
+<!-- AUTH MODAL -->
+
+<div class="modal-overlay"
+id="authModal">
+
+<div class="modal">
+
+<h2>
+🔐 SmartVerse Login
+</h2>
+
+<input type="email"
+id="email"
+placeholder="Email">
+
+<input type="password"
+id="password"
+placeholder="Password">
+
+<button onclick="signup()">
+Signup
+</button>
+
+<br><br>
+
+<button onclick="login()">
+Login
+</button>
+
+<br><br>
+
+<button onclick="googleLogin()">
+Google Login
+</button>
+
+<br><br>
+
+<button onclick="closeAuthModal()">
+Close
+</button>
+
+</div>
+
+</div>
+
+<!-- TOAST -->
+
+<div class="toast"
+id="toast">
+
+Tool Opened Successfully
+
+</div>
+
+<!-- FILES -->
+
 <script src="tools-data.js"></script>
-<script src="dashboard.js"></script>
+
+<script type="module"
+src="dashboard.js"></script>
 
 </body>
 </html>
